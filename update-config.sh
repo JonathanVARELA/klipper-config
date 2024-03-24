@@ -19,9 +19,10 @@ git pull
 items=$(ls -d */ | sed 's/\///g')
 # print items
 
-while [ choice=$(dialog --title "Select your printer" \
+while choice=$(dialog --title "Select your printer" \
     --menu "Choose one of the following options:" 15 55 5 \
-    $items 3>&1 1>&2 2>&3) ]; do
-  echo $choice
+    $items 3>&1 1>&2 2>&3)
+  do
+    echo $choice
   break
 done
