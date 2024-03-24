@@ -1,5 +1,6 @@
 #!/bin/bash
-git pull
+git checkout .
+git pull.ff only
 
 # this script is located at the root of the project
 # each folder at the root of the project represent a config file for a given printer (ex: a10m, ender3, etc...)
