@@ -51,7 +51,8 @@ printers=$(ls -d */ | sed 's/\///g')
 if $(echo "$printers" | wc -l) -eq 1; then
   update_config "$printers"
 else
-  PS3="Select a printer: "
+  echo "Select the printer to update:"
+  PS3="Selected printer: "
   select printer in $printers; do
     if [ -n "$printer" ]; then
       update_config "$printer"
