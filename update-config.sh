@@ -48,7 +48,7 @@ update_config() {
 printers=$(ls -d */ | sed 's/\///g')
 
 # if only one printer is available, select it automatically
-if $(echo "$printers" | wc -l) -eq "1"; then
+if [ "$(echo "$printers" | wc -l)" -eq 1 ]; then
   update_config "$printers"
 else
   echo "Select the printer to update:"
