@@ -20,27 +20,27 @@ update_config() {
 
   echo "You selected: $printer"
   # Check if the folder with the same name exists in the home directory
-  if [ ! -d ~/"$printer" ]; then
-      echo "Creating folder ~/$printer"
-      mkdir ~/"$printer"
+  if [ ! -d ~/printer_data/config/"$printer" ]; then
+      echo "Creating folder ~/printer_data/config/$printer"
+      mkdir ~/printer_data/config/"$printer"
   fi
   # Check if the file printer.cfg exists in the folder ~/
-  if [ ! -f ~/printer.cfg ]; then
-      echo "Copying printer.cfg to ~/$printer"
-      cp "$printer"/printer.cfg ~/printer.cfg
+  if [ ! -f ~/printer_data/config/printer.cfg ]; then
+      echo "Copying printer.cfg to ~/printer_data/config"
+      cp "$printer"/printer.cfg ~/printer_data/config/printer.cfg
   fi
-  # Check if the folder config exists in the folder ~/$printer
-  if [ ! -d ~/"$printer"/config ]; then
-      echo "Creating folder ~/$printer/config"
+  # Check if the folder config exists in the folder ~/printer_data/config/$printer
+  if [ ! -d ~/printer_data/config/"$printer" ]; then
+      echo "Creating folder ~/printer_data/config/$printer"
       # shellcheck disable=SC2086
-      mkdir ~/$printer/config
+      mkdir ~/printer_data/config/$printer
   fi
-  # Clear the contents of the folder ~/$printer/config
-  echo "Clearing the contents of ~/$printer/config"
-  rm -rf ~/"$printer"/config/*
+  # Clear the contents of the folder ~/printer_data/config/$printer/config
+  echo "Clearing the contents of ~/printer_data/config/$printer/config"
+  rm -rf ~/printer_data/config/"$printer"/*
   # Copy the contents of the project config folder to the newly created config folder
-  echo "Copying the contents of $printer/config to ~/$printer/config"
-  cp -r "$printer"/config/* ~/"$printer"/config/
+  echo "Copying the contents of $printer/config to ~/printer_data/config/$printer/config"
+  cp -r "$printer"/config/* ~/printer_data/config/"$printer"/
   echo "Update complete"
 }
 
