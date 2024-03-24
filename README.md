@@ -1,10 +1,8 @@
 # How to use
-run the following command in the terminal to install/update the kilpper config
+Add and run the following alias (change the path to the klipper-config folder if needed)
 
 ```bash
-cd klipper-config && \
-git checkout . && \
-git pull && \
-chmod +x update-config.sh && \
-./update-config.sh
+alias uklipper='cd ~/klipper-config && git checkout . && git pull && chmod +x update-config.sh && ./update-config.sh && cd ~'
 ```
+
+Then run the alias `uklipper` to update the klipper configuration.
