@@ -14,36 +14,50 @@
 # finally, send a message to the user that the update is complete
 # Code :
 
+# update the printer config file function
+update_config() {
+  printer=$1
+
+  echo "You selected: $printer"
+  # Check if the folder with the same name exists in the home directory
+  if [ ! -d ~/"$printer" ]; then
+      echo "Creating folder ~/$printer"
+      mkdir ~/"$printer"
+  fi
+  # Check if the file printer.cfg exists in the folder ~/
+  if [ ! -f ~/printer.cfg ]; then
+      echo "Copying printer.cfg to ~/$printer"
+      cp "$printer"/printer.cfg ~/printer.cfg
+  fi
+  # Check if the folder config exists in the folder ~/$printer
+  if [ ! -d ~/"$printer"/config ]; then
+      echo "Creating folder ~/$printer/config"
+      # shellcheck disable=SC2086
+      mkdir ~/$printer/config
+  fi
+  # Clear the contents of the folder ~/$printer/config
+  echo "Clearing the contents of ~/$printer/config"
+  rm -rf ~/"$printer"/config/*
+  # Copy the contents of the project config folder to the newly created config folder
+  echo "Copying the contents of $printer/config to ~/$printer/config"
+  cp -r "$printer"/config/* ~/"$printer"/config/
+  echo "Update complete"
+}
+
 # Select a printer config file
 printers=$(ls -d */ | sed 's/\///g')
 
-select printer in $printers; do
+# if only one printer is available, select it automatically
+if $(echo "$printers" | wc -l) -eq 1; then
+  update_config "$printers"
+else
+  PS3="Select a printer: "
+  select printer in $printers; do
     if [ -n "$printer" ]; then
-        echo "You selected: $printer"
-        # Check if the folder with the same name exists in the home directory
-        if [ ! -d ~/$printer ]; then
-            echo "Creating folder ~/$printer"
-            mkdir ~/$printer
-        fi
-        # Check if the file printer.cfg exists in the folder ~/
-        if [ ! -f ~/printer.cfg ]; then
-            echo "Copying printer.cfg to ~/$printer"
-            cp $printer/printer.cfg ~/printer.cfg
-        fi
-        # Check if the folder config exists in the folder ~/$printer
-        if [ ! -d ~/$printer/config ]; then
-            echo "Creating folder ~/$printer/config"
-            mkdir ~/$printer/config
-        fi
-        # Clear the contents of the folder ~/$printer/config
-        echo "Clearing the contents of ~/$printer/config"
-        rm -rf ~/$printer/config/*
-        # Copy the contents of the project config folder to the newly created config folder
-        echo "Copying the contents of $printer/config to ~/$printer/config"
-        cp -r $printer/config/* ~/$printer/config/
-        echo "Update complete"
-        break
+      update_config "$printer"
+      break
     else
-        echo "Invalid selection"
+      echo "Invalid selection"
     fi
-done
+  done
+fi
