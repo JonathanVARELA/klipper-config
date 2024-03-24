@@ -16,6 +16,7 @@
 
 # Select a printer config file
 items=$(ls -d */ | sed 's/\///g')
+echo $items
 
 while choice=$(dialog --title "Select your printer" \
                       --menu "Choose one of the following options:" \
