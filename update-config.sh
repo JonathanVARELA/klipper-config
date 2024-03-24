@@ -16,12 +16,14 @@
 
 # Select a printer config file
 items=$(ls -d */ | sed 's/\///g')
-# print items
 
 while choice=$(dialog --title "Select your printer" \
-    --menu "Choose one of the following options:" 15 55 5 \
-    $items 3>&1 1>&2 2>&3)
-  do
-    echo $choice
-  break
+                      --menu "Choose one of the following options:" \
+                      15 60 4 \
+                      "$items" \
+                      2>&1 >/dev/tty)
+do
+    clear
+    echo "You chose $choice"
+    break
 done
