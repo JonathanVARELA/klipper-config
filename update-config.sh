@@ -20,9 +20,11 @@ items=$(ls -d */ | sed 's/\///g')
 # print items
 
 while [ choice=$(dialog --title "Select your printer" \
-  --menu "Choose one of the following printer:" 10 40 3 \
-  "${items[@]}" \
-  2>&1 >/dev/tty
+    --menu "Choose one of the following options:" 15 55 5 \
+    $items 3>&1 1>&2 2>&3) ]; do
+  echo $choice
+  break
+done
 ) ]; do
   echo $choice
   break
