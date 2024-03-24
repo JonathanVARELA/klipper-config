@@ -25,7 +25,3 @@ while [ choice=$(dialog --title "Select your printer" \
   echo $choice
   break
 done
-) ]; do
-  echo $choice
-  break
-done
