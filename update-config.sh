@@ -25,22 +25,5 @@ while [ choice=$(dialog --title "Select your printer" \
   2>&1 >/dev/tty
 ) ]; do
   # echo $choice
-  # Check if the folder with the same name exists in the home directory
-  if [ ! -d ~/$choice ]; then
-    mkdir ~/$choice
-  fi
-  # Check if the file printer.cfg exists in the folder ~/
-  if [ ! -f ~/printer.cfg ]; then
-    cp $choice/printer.cfg ~/printer.cfg
-  fi
-  # Check if the folder config exists in the folder ~/a10m
-  if [ ! -d ~/$choice/config ]; then
-    mkdir ~/$choice/config
-  fi
-  # Clear the contents of the folder ~/a10m/config
-  rm -rf ~/$choice/config/*
-  # Copy the contents of the project config folder to the newly created config folder
-  cp -r $choice/config/* ~/$choice/config/
-  # Send a message to the user that the update is complete
-  dialog --title "Update complete" --msgbox "The update is complete" 10 40
   break
+done
