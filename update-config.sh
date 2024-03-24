@@ -30,8 +30,8 @@ while [ choice=$(dialog --title "Select your printer" \
     mkdir ~/$choice
   fi
   # Check if the file printer.cfg exists in the folder ~/
-  if [ ! -f ~/$choice/printer.cfg ]; then
-    cp $choice/printer.cfg ~/$choice/printer.cfg
+  if [ ! -f ~/printer.cfg ]; then
+    cp $choice/printer.cfg ~/printer.cfg
   fi
   # Check if the folder config exists in the folder ~/a10m
   if [ ! -d ~/$choice/config ]; then
